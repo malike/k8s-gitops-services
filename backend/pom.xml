@@ -20,7 +20,7 @@
         <checkstyle.version>9.2.1</checkstyle.version>
         <checkstyle.config.location>config/checkstyle/config.xml</checkstyle.config.location>
         <checkstyle.suppress.location>config/checkstyle/suppressions.xml</checkstyle.suppress.location>
-        <logback.version>1.4.3</logback.version>
+        <logback.version>1.4.12</logback.version>
     </properties>
 
     <dependencies>
