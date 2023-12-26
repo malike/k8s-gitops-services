@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gitops-observability-frontend-chart
+spec:
+  releaseName: gitops-observability-frontend
+  interval: 10m
+  chart:
+    spec:
+      chart: gitops-observability-frontend-chart
+      version: "0.0.1"
+      sourceRef:
+        kind: HelmRepository
+        name: gitops-observability-frontend-chart
+        namespace: gitops-service
+  values:
+    imagePullSecrets:
+      - name: gcr-docker-registry
+    image:
+      repository: gcr.io/malike/gitops-frontend-service
+      tag: latest
+    configMap: environment-configmap
+    nodeSelector:
+      node.kubernetes.io/role: platform
+      kubernetes.io/os: linux

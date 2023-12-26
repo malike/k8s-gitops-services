@@ -1,25 +1,34 @@
 #!make
 
-BACKEND_IMAGE_NAME := k8s-gitops-backend
-FRONTEND_IMAGE_NAME := k8s-gitops-backend
+BACKEND_IMAGE_NAME := gitops-backend-service
+FRONTEND_IMAGE_NAME := gitops-frontend-service
 TAG := latest
 
 
 .PHONY:
-clean-backend:
-	cd backend
-	mvn clean
+clean-backend: ## Clean services
+	pushd backend && mvn clean
 
 .PHONY:
-build-backend: clean-backend
-	mvn compile
-	mvn package
+build-backend: clean-backend ## Build java backend service
+	pushd backend && mvn compile && mvn package
 
 .PHONY:
-docker-build-backend: build-backend
-	docker build -f Dockerfile -t ${BACKEND_IMAGE_NAME}:${TAG} .
+docker-build-backend: ## Build backend docker image to registry
+	pushd backend && docker build -f Dockerfile -t ${BACKEND_IMAGE_NAME}:${TAG} .
+
+.PHONY: docker-build-backend
+docker-build-backend-push: ## Build and push backend docker image to registry
+	docker push ${BACKEND_IMAGE_NAME}:${TAG}
 
 .PHONY:
-docker-build-frontend:
-	cd frontend
-	docker build -f Dockerfile -t ${FRONTEND_IMAGE_NAME}:${TAG} .
+docker-build-frontend: ## Build frontend docker image
+	pushd frontend && docker build -f Dockerfile -t ${FRONTEND_IMAGE_NAME}:${TAG} .
+
+.PHONY:
+docker-build-frontend-push: docker-build-frontend ## Build and push backend docker image to registry
+	docker push ${FRONTEND_IMAGE_NAME}:${TAG}
+
+.PHONY:
+help: ## Display this help screen
+	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

@@ -1,0 +1,34 @@
+name: Build phase
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build & push image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v1
+
+      - name: Login to Github Packages
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push backend to GitHub Container Registry
+        run: make docker-build-backend-push
+
+      - name: Build and push frontend to GitHub Container Registry
+        run: make docker-build-frontend-push
+
+#      - name: Connect to UAT cluster and test connection
+#        uses:
+#
+#      - name: Create Secret to Test Cluster
+#        run: |
+#          kubectl create secret generic gcr-docker-registry --from-file=.dockerconfigjson=${HOME}/.docker/config.json --type=kubernetes.io/dockerconfigjson

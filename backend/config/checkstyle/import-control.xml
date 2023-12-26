@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE import-control PUBLIC
+  "-//Puppy Crawl//DTD Import Control 1.4//EN"
+  "http://checkstyle.sourceforge.net/dtds/import_control_1_4.dtd">
+
+<!--
+    Order of rules in the same subpackage/root are defined by the order of declaration
+        in the XML file, which is from top (first) to bottom (last).
+    If there is no matching allow/disallow rule inside the current file/subpackage then
+        it continues checking in the parent subpackage.
+
+    src: https://checkstyle.sourceforge.io/apidocs/com/puppycrawl/tools/checkstyle/checks/imports/ImportControlCheck.html
+-->
+<import-control pkg="com.malike" strategyOnMismatch="allowed">
+
+
+</import-control>
