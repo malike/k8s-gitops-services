@@ -14,11 +14,11 @@ build-backend: clean-backend ## Build java backend service
 	pushd backend && mvn compile && mvn package
 
 .PHONY:
-docker-build-backend: ## Build backend docker image to registry
+docker-build-backend: ## Build backend docker image
 	pushd backend && docker build -f Dockerfile -t ${BACKEND_IMAGE_NAME}:${TAG} .
 
 .PHONY: docker-build-backend
-docker-build-backend-push: ## Build and push backend docker image to registry
+docker-build-backend-push:  docker-build-backend ## Build and push backend docker image to registry
 	docker push ${BACKEND_IMAGE_NAME}:${TAG}
 
 .PHONY:
