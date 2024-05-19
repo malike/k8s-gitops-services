@@ -1,7 +1,7 @@
 #!make
 
-BACKEND_IMAGE_NAME := gitops-backend-service
-FRONTEND_IMAGE_NAME := gitops-frontend-service
+BACKEND_IMAGE_NAME := ghcr.io/malike/k8s-gitops-services/gitops-backend-service
+FRONTEND_IMAGE_NAME := ghcr.io/malike/k8s-gitops-services/gitops-frontend-service
 TAG := latest
 
 
