@@ -7,15 +7,19 @@ TAG := latest
 
 .PHONY:
 clean-backend: ## Clean services
-	pushd backend && mvn clean
+	cd backend && mvn clean
 
 .PHONY:
 build-backend: clean-backend ## Build java backend service
-	pushd backend && mvn compile && mvn package
+	cd backend && mvn compile && mvn package
+
+.PHONY:
+build-frontend:  ## Build frontend
+	echo "doing nothing"
 
 .PHONY:
 docker-build-backend: ## Build backend docker image
-	pushd backend && docker build -f Dockerfile -t ${BACKEND_IMAGE_NAME}:${TAG} .
+	cd backend && docker build -f Dockerfile -t ${BACKEND_IMAGE_NAME}:${TAG} .
 
 .PHONY: docker-build-backend
 docker-build-backend-push:  docker-build-backend ## Build and push backend docker image to registry
@@ -23,7 +27,7 @@ docker-build-backend-push:  docker-build-backend ## Build and push backend docke
 
 .PHONY:
 docker-build-frontend: ## Build frontend docker image
-	pushd frontend && docker build -f Dockerfile -t ${FRONTEND_IMAGE_NAME}:${TAG} .
+	cd frontend && docker build -f Dockerfile -t ${FRONTEND_IMAGE_NAME}:${TAG} .
 
 .PHONY:
 docker-build-frontend-push: docker-build-frontend ## Build and push backend docker image to registry
