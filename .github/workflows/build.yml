@@ -25,10 +25,3 @@ jobs:
 
       - name: Build and push frontend to GitHub Container Registry
         run: make docker-build-frontend-push
-
-#      - name: Connect to UAT cluster and test connection
-#        uses:
-#
-#      - name: Create Secret to Test Cluster
-#        run: |
-#          kubectl create secret generic gcr-docker-registry --from-file=.dockerconfigjson=${HOME}/.docker/config.json --type=kubernetes.io/dockerconfigjson
