@@ -4,9 +4,15 @@
     <springProperty scope="context" name="appName" source="spring.application.name"/>
     <springProperty scope="context" name="lokiHost" source="loki.host"/>
 
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n ,traceID=%X{traceId:-NONE},level=%level</pattern>
+        </encoder>
+    </appender>
+
     <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
         <http>
-            <url>${lokiHost}</url>
+            <url>${LOKI_HOST:-http://localhost:3100/loki/api/v1/push}</url>
         </http>
         <format>
             <label>
@@ -20,6 +26,7 @@
     </appender>
 
     <root level="INFO">
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="LOKI"/>
     </root>
 </configuration>
