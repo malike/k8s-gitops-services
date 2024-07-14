@@ -8,3 +8,12 @@ spec:
   url: https://charts.bitnami.com/bitnami
   interval: 10m
 ---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: gitops-malike-repo
+  namespace: gitops-service
+spec:
+  url: https://malike.kendeh.com/k8s-gitops-helm-services/
+  interval: 10m
+---
